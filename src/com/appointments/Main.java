@@ -3,6 +3,7 @@ package com.appointments;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
@@ -57,7 +58,9 @@ public class Main {
         logger.info("Descripción: ");
         String desc = sc.nextLine().trim();
         Appointment a = manager.addAppointment(datetime, desc);
-        logger.info(String.format("Cita añadida: %s", a));
+        if (logger.isLoggable(Level.INFO)) {
+            logger.info(String.format("Cita añadida: %s", a));
+        }
         manager.runCommand(desc);
     }
 
@@ -69,10 +72,14 @@ public class Main {
         }
         logger.info("Citas existentes:");
         for (Appointment a : list) {
-            logger.info(a.toString());
+            if (logger.isLoggable(Level.INFO)) {
+                logger.info(a.toString());
+            }
         }
         for (Appointment a : list) {
-            logger.info(a.toString());
+            if (logger.isLoggable(Level.INFO)) {
+                logger.info(a.toString());
+            }
         }
     }
 
@@ -105,10 +112,14 @@ public class Main {
             logger.warning("No se encontró cita con ese ID.");
             return;
         }
-        logger.info(String.format("Nueva fecha y hora (actual: %s): ", a.getDatetime()));
+        if (logger.isLoggable(Level.INFO)) {
+            logger.info(String.format("Nueva fecha y hora (actual: %s): ", a.getDatetime()));
+        }
         String newDt = sc.nextLine().trim();
         if (newDt.isEmpty()) newDt = a.getDatetime();
-        logger.info(String.format("Nueva descripción (actual: %s): ", a.getDescription()));
+        if (logger.isLoggable(Level.INFO)) {
+            logger.info(String.format("Nueva descripción (actual: %s): ", a.getDescription()));
+        }
         String newDesc = sc.nextLine().trim();
         if (newDesc.isEmpty()) newDesc = a.getDescription();
         boolean ok = manager.updateAppointment(id, newDt, newDesc);
