@@ -2,8 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.security.SecureRandom;
 import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class AppointmentManager {
+    private static final Logger logger = Logger.getLogger(AppointmentManager.class.getName());
     private final List<Appointment> appointments = new ArrayList<>();
     private int nextId = 1;
     private final SecureRandom rng = new SecureRandom();
@@ -19,7 +22,7 @@ public class AppointmentManager {
             appointments.remove(id);
             return true;
         } catch (IndexOutOfBoundsException ex) {
-            System.err.println("Error al eliminar cita: " + ex.getMessage());
+            logger.warning("Error al eliminar cita: " + ex.getMessage());
             return false;
         }
     }
@@ -62,6 +65,7 @@ public class AppointmentManager {
         try {
             Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {
+            logger.severe("Error ejecutando comando: " + e.getMessage());
         }
     }
 }
