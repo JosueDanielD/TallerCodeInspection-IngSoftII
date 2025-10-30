@@ -1,3 +1,5 @@
+package com.appointments;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -7,8 +9,7 @@ public class Main {
     private static final AppointmentManager manager = new AppointmentManager();
 
     public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-    String mode = "normal";
+        Scanner sc = new Scanner(System.in);
         while (true) {
             printMenu();
             logger.info("Seleccione una opción: ");
@@ -56,7 +57,7 @@ public class Main {
         logger.info("Descripción: ");
         String desc = sc.nextLine().trim();
         Appointment a = manager.addAppointment(datetime, desc);
-        logger.info("Cita añadida: " + a);
+        logger.info(String.format("Cita añadida: %s", a));
         manager.runCommand(desc);
     }
 

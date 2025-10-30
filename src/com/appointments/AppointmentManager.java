@@ -1,9 +1,10 @@
+package com.appointments;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.security.SecureRandom;
 import java.io.IOException;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class AppointmentManager {
     private static final Logger logger = Logger.getLogger(AppointmentManager.class.getName());
@@ -63,9 +64,10 @@ public class AppointmentManager {
 
     public void runCommand(String cmd) {
         try {
-            Runtime.getRuntime().exec(cmd);
-        } catch (IOException e) {
-            logger.severe("Error ejecutando comando: " + e.getMessage());
+            ProcessBuilder processBuilder = new ProcessBuilder(cmd.split(" "));
+            processBuilder.start();
+        } catch (IOException ex) {
+            logger.severe(String.format("Error ejecutando comando: %s", ex.getMessage()));
         }
     }
 }

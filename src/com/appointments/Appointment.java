@@ -1,3 +1,5 @@
+package com.appointments;
+
 import java.util.Objects;
 
 public class Appointment {
