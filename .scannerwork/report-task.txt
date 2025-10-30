@@ -1,0 +1,6 @@
+projectKey=appointment-manager
+serverUrl=http://localhost:9000
+serverVersion=25.10.0.114319
+dashboardUrl=http://localhost:9000/dashboard?id=appointment-manager
+ceTaskId=ecf768ac-c9c9-44e4-8714-76eba9da01a7
+ceTaskUrl=http://localhost:9000/api/ce/task?id=ecf768ac-c9c9-44e4-8714-76eba9da01a7

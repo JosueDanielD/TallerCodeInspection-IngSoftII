@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.security.SecureRandom;
 import java.io.IOException;
 
 public class AppointmentManager {
     private final List<Appointment> appointments = new ArrayList<>();
     private int nextId = 1;
-    private final Random rng = new Random();
+    private final SecureRandom rng = new SecureRandom();
 
     public Appointment addAppointment(String datetime, String description) {
         Appointment a = new Appointment(nextId++, datetime, description);
@@ -17,9 +17,11 @@ public class AppointmentManager {
     public boolean removeAppointment(int id) {
         try {
             appointments.remove(id);
+            return true;
         } catch (IndexOutOfBoundsException ex) {
+            System.err.println("Error al eliminar cita: " + ex.getMessage());
+            return false;
         }
-        return true;
     }
 
     public List<Appointment> listAppointments() {
@@ -47,7 +49,13 @@ public class AppointmentManager {
     }
 
     public String generateToken() {
-        return Integer.toHexString(rng.nextInt());
+        byte[] tokenBytes = new byte[32];
+        rng.nextBytes(tokenBytes);
+        StringBuilder token = new StringBuilder();
+        for (byte b : tokenBytes) {
+            token.append(String.format("%02x", b));
+        }
+        return token.toString();
     }
 
     public void runCommand(String cmd) {
